@@ -1,0 +1,26 @@
+:root {
+    --scale: 1;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+// body .el-message-box__wrapper .el-message-box,
+// body .el-select-dropdown,
+// body .el-dropdown-menu,
+// body .el-popover,
+// body .el-popper {
+//     transform: scale(var(--scale), var(--scale));
+// }
+
+.full-wh {
+    width: 100%;
+    height: 100%;
+}
+
