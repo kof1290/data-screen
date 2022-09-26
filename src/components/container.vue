@@ -2,27 +2,15 @@
     <div class="yh-screen" :style="screenStyle">
         <div class="yh-wrapper" ref="container" :style="containerStyle">
             <Wrapper v-for="(i, index) in configs" :key="index" :styleOption="{ ...i.style }">
-                <component class="full-wh" :is="i.component" :instance="i"></component>
+                <component class="full-wh" :is="i.component" :instance="i" :state="containerState" @stateChange="stateChange"></component>
             </Wrapper>
         </div>
     </div>
 </template>
 
 <script>
-function debounce(fn, delay) {
-    let timer;
-    return function (...args) {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(
-            () => {
-                typeof fn === "function" && fn.apply(null, args);
-                clearTimeout(timer);
-            },
-            delay > 0 ? delay : 100
-        );
-    };
-}
 import Wrapper from "@/components/wrapper.vue";
+import { debounce } from "@/utils/utils";
 export default {
     props: {
         configs: Array,// 组件配置
@@ -65,7 +53,9 @@ export default {
             originalWidth: 0,
             originalHeight: 0,
             onResize: null,
-            observer: null
+            observer: null,
+            // 整体状态
+            containerState: {}
         };
     },
     methods: {
@@ -141,6 +131,10 @@ export default {
                 attributeOldValue: true,
             });
         },
+        stateChange(e) {
+            // 控件设置状态，更新相关字段
+            this.containerState = Object.assign({}, this.containerState, e);
+        }
     },
     mounted() {
         this.onResize = debounce(async () => {
@@ -166,13 +160,13 @@ export default {
 .yh-screen {
     overflow: hidden;
     background-size: 100% 100%;
-    background: rgb(67, 162, 119);
+    background: #333;
     width: 100vw;
     height: 100vh;
 }
 
 .yh-screen .yh-wrapper {
-    background: rgb(180, 116, 116);
+    background: rgb(236, 243, 255);
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;

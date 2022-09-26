@@ -1,12 +1,17 @@
 import service from "@/api";
+import vue from 'vue'
+
+let component_id = 0;
 
 export default class BaseComponent {
     constructor({ component, width, height, left, top, zIndex, option, dataOption }) {
+        this.id = `${component}-${component_id++}`;
         this.component = component;// 组件名称
         this.style = this.genStyle({ width, height, left, top, zIndex });// 大小，位置
         this.option = option;
         this.dataOption = dataOption;
     }
+
     genStyle({ width = 100, height = 100, left = 100, top = 100, zIndex = 1 }) {
         return {
             width,

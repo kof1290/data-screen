@@ -6,11 +6,14 @@ export default class Pic extends BaseComponent {
     }
     handelOption({option}) {
         if (option) {
-            let {picName} = option;
-            this.option.picName = this.getPicFullPath(picName);
+            this.option.picName = this.getPicFullPath(option);
         }
     }
-    getPicFullPath(picName) {
-        return `/src/assets/picImgs/${picName}.png`;
+    getPicFullPath({project, picName}) {
+        if (project) {
+            return `/src/assets/projects/${project}/${picName}.png`
+        } else {
+            return `/src/assets/picImgs/${picName}.png`;
+        }
     }
 }

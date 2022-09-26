@@ -1,23 +1,36 @@
-import BaseComponent from "@/module/BaseComponent";
-import {b} from '@/utils/utils';
+import { b } from '@/utils/utils';
 //引入组件类
 import Pic from "@/module/Pic";
+import Echart from '@/module/Echart';
+import Filter from '@/module/Filter';
+//引用长配置项
+import chart1, {option as pieChart} from './chartOption/chart1'
+import barChart, {option as barOption} from './chartOption/barChart';
 
 // 此处的【上下顺序】隐含了z-index的【从下到上】的顺序，也可以使用rest额外变量传入z-index值
 const pics = [
-    new Pic(b('pic', 100, 150, 100, 100, {
-        picName: '河道'
-    }, null, {'z-index': 2})),
-    new Pic(b('pic', 100, 150, 300, 500, null, null)),
-    new Pic(b('pic', 123, 390, 123, 123, null, null))
+    new Pic(b('pic', 1942, 132, -11, -2, {
+        project: 'jinniu',
+        picName: 'logobg'
+    }))
 ]
 
 const list = [
     ...pics,
-    new BaseComponent(b('graph', 300, 400, 900, 300, null, {method: 'get', url: 'http://172.38.110.228:30032/api/v1/pieGraph'})),
-    new BaseComponent(b('graph', 300, 400, 1080, 1000, null, {method: 'get', url: 'http://172.38.110.228:30032/api/v1/pieGraph'})),
-    new BaseComponent(b('datePicker', 200, 100, 400, 300)),
-    new BaseComponent(b('selectFilter', 200, 80, 400, 500))
+    new Echart(b('echart', 1904, 293, 0, 393, pieChart, { 
+        url: 'http://127.0.0.1:3100/api/v1/streetCommunityVillageNum',
+        ...chart1
+    })),
+    new Echart(b('echart', 1017, 324, 0, 730, barOption, {
+        url: 'http://127.0.0.1:3100/api/v1/streetVillageNumDistribution',
+        ...barChart
+    })),
+    new Filter(b('selectFilter', 200, 80, 100, 100, {
+        filterKey: 'code'
+    }, null)),
+    new Filter(b('selectFilter', 200, 80, 300, 100, {
+        filterKey: 'name'
+    }, null))
 ]
 
 export default list;

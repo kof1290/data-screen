@@ -61,3 +61,26 @@ export const withPx = (obj) => {
     })
     return style;
 }
+
+
+/**
+ * 简化版防抖函数
+ *
+ * @export
+ * @param {*} fn
+ * @param {*} delay
+ * @return {*} 
+ */
+export function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(
+            () => {
+                typeof fn === "function" && fn.apply(null, args);
+                clearTimeout(timer);
+            },
+            delay > 0 ? delay : 100
+        );
+    };
+}
