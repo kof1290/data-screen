@@ -6,6 +6,8 @@ import Filter from '@/module/Filter';
 //引用长配置项
 import chart1, {option as pieChart} from './chartOption/chart1'
 import barChart, {option as barOption} from './chartOption/barChart';
+import BaseComponent from '@/module/BaseComponent';
+import Container from '@/module/Container';
 
 // 此处的【上下顺序】隐含了z-index的【从下到上】的顺序，也可以使用rest额外变量传入z-index值
 const pics = [
@@ -25,12 +27,9 @@ const list = [
         url: 'http://127.0.0.1:3100/api/v1/streetVillageNumDistribution',
         ...barChart
     })),
-    new Filter(b('selectFilter', 200, 80, 100, 100, {
-        filterKey: 'code'
-    }, null)),
-    new Filter(b('selectFilter', 200, 80, 300, 100, {
-        filterKey: 'name'
-    }, null))
+    new BaseComponent(b('c-table', 800, 324, 1100, 730)),
+    new Filter(b('selectFilter', 200, 80, 100, 100, {filterKey: 'code',relatedWidgets: ['echart-1']}, null)),
+    new Filter(b('selectFilter', 200, 80, 300, 100, {filterKey: 'name',relatedWidgets: ['echart-2']}, null))
 ]
 
-export default list;
+export default new Container(list);

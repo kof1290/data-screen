@@ -6,5 +6,6 @@ export default class Filter extends BaseComponent {
         this.handelOption(obj);
     }
     handelOption({option}) {
+        console.log('关联组件为', option.relatedWidgets.join(','));
     }
 }

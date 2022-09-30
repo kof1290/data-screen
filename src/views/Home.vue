@@ -1,5 +1,5 @@
 <template>
-    <container :configs="demoConfigs"></container>
+    <container :configs="demoConfigs.widgets"></container>
 </template>
 <script>
 import container from '@/components/container.vue'

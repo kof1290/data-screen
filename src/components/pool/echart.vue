@@ -1,5 +1,5 @@
 <template>
-    <div ref="chart" :id="instance.id"></div>
+    <div ref="chart"></div>
 </template>
 
 <script>

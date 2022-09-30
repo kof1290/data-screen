@@ -8,11 +8,6 @@ export default {
             queryResult: null
         }
     },
-    watch: {
-        state() {
-            this.fetchData().then(() => this.reRender())
-        }
-    },
     methods: {
         /* 各个组件自己实现 start*/
         init() {
@@ -41,5 +36,17 @@ export default {
     },
     mounted() {
         this.fetchData().then(() =>this.init());
+        // console.log(this.pubsub, this);
+        // 如果组件被关联，建立监听事件
+        if (Reflect.has(this.instance, 'association')) {
+            let {from: {id}} = this.instance.association;
+            this.pubsub.subscribe(id, (msg, data) => {
+                console.log(`I'm ${this.instance.id}, receive ${msg}, data is ${JSON.stringify(data)}`);
+                this.reRender();
+            })
+            this.$once('hook:beforeDestory', () => {
+                this.pubsub.unsubscribe();
+            })
+        }
     }
 }

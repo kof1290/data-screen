@@ -2,7 +2,7 @@
     <div class="yh-screen" :style="screenStyle">
         <div class="yh-wrapper" ref="container" :style="containerStyle">
             <Wrapper v-for="(i, index) in configs" :key="index" :styleOption="{ ...i.style }">
-                <component class="full-wh" :is="i.component" :instance="i" :state="containerState" @stateChange="stateChange"></component>
+                <component :id="i.id" class="full-wh" :is="i.component" :instance="i" :state="containerState" @stateChange="stateChange"></component>
             </Wrapper>
         </div>
     </div>

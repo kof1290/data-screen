@@ -44,10 +44,8 @@ export default create({
     },
     methods: {
       change(e) {
-        console.log('filter',e);
-        this.$emit('stateChange', {
-          [this.instance.option.filterKey]: e
-        })
+        let {id, option: {filterKey}} = this.instance
+        this.pubsub.publish(id, {[filterKey]: e})
       }
     }
 })
